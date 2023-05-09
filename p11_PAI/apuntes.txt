@@ -1,0 +1,56 @@
+Para agregar un cuadro de texto que se actualice automáticamente en la pantalla, puedes crear un elemento input de tipo text y usarlo para mostrar y actualizar los valores. Aquí tienes un ejemplo de cómo agregar un cuadro de texto que muestre y actualice la distancia y el intervalo:
+
+Añade el siguiente HTML para crear los elementos input en tu archivo HTML:
+
+html
+Copy code
+
+<div>
+  <label for="distancia">Distancia:</label>
+  <input type="text" id="distancia" readonly>
+</div>
+<div>
+  <label for="intervalo">Intervalo:</label>
+  <input type="text" id="intervalo" readonly>
+</div>
+
+Modifica la función main para establecer los valores iniciales de los elementos input y actualizarlos cuando cambien:
+javascript
+
+Copy code
+const main = async function () {
+  // Preguntar al usuario la distancia que se moverá la bola
+  const distanciaStr = prompt("Introduce la distancia que se moverá la bola en cada paso:");
+  const distancia = distanciaStr ? parseInt(distanciaStr, 10) : 10; // Valor predeterminado 10 si el usuario cancela o ingresa un valor no válido
+
+  // Preguntar al usuario cada cuánto tiempo se actualizará la posición de la bola
+  const intervaloStr = prompt("Introduce cada cuántos milisegundos se actualizará la posición de la bola:");
+  const intervalo = intervaloStr ? parseInt(intervaloStr, 10) : 100; // Valor predeterminado 100 si el usuario cancela o ingresa un valor no válido
+
+  // Crear la instancia de Bola con la distancia proporcionada por el usuario
+  const bola = new Bola(1600 / 2, 700 / 2, 20, distancia);
+
+  // Crear la instancia de Lienzo con el intervalo proporcionado por el usuario
+  const lienzo = new Lienzo(document.createElement("canvas"), undefined, 1600, 700, bola, intervalo);
+
+  // Establecer los valores iniciales de los elementos input
+  const distanciaInput = document.getElementById("distancia") as HTMLInputElement;
+  distanciaInput.value = distancia.toString();
+  const intervaloInput = document.getElementById("intervalo") as HTMLInputElement;
+  intervaloInput.value = intervalo.toString();
+
+  const container = document.getElementById("container");
+  container?.appendChild(lienzo.canvas);
+};
+
+main();
+
+un cuadro de texto en la pantalla que muestra la distancia y el intervalo. Estos cuadros de texto se actualizarán automáticamente cuando los valores cambien.
+En este ejemplo, los cuadros de texto son de solo lectura (readonly), pero puedes quitar el atributo readonly si deseas que los usuarios puedan cambiar los valores directamente
+en los cuadros de texto.
+
+
+
+
+Evento para que se active al poner el raton encima:       UPBUTTON.addEventListener('mouseenter', () => moverBolaContinuamente('up'));
+para que se desactive al quitarlo:                        UPBUTTON.addEventListener('mouseleave', detenerMovimientoBola);
